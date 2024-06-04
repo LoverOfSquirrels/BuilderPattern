@@ -1,16 +1,26 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import builders.CarBuilder;
+import builders.CarManualBuilder;
+import cars.Car;
+import cars.Manual;
+import directors.Director;
 
 public class Main {
     public static void main(String[] args) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Director director = new Director();
+
 
         CarBuilder builder = new CarBuilder();
-        Director director = new Director(builder);
+        director.constructSportsCar(builder);
 
-        director.makeCar(builder);
         Car car = builder.getResult();
+        System.out.println("Car built:\n" + car.getCarType());
 
-        System.out.println(gson.toJson(car));
+
+        CarManualBuilder manualBuilder = new CarManualBuilder();
+        director.constructSportsCar(manualBuilder);
+
+
+        Manual carManual = manualBuilder.getResult();
+        System.out.println("\nCar manual built:\n" + carManual.print());
     }
 }
